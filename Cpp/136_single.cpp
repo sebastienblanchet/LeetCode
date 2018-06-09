@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <bitset>
 #include "Ref/seb_util.c"
 
 using namespace std;
@@ -21,24 +22,27 @@ Tags: Bit manip
 
 class Solution {
 public:
+
     int singleNumber(vector<int>& nums) {
-        vector<int> memo;
-        int ans;
+        int sum = 0;
+        int i = 0;
 
-        // for O(n)
-        for(int i = 0; i <nums.size(); ++i){
-            // O(n)
-            if(find(memo.begin(), memo.end(), nums[i]) != memo.end()){
-                cout << nums[i] <<"is in memo" << endl;
-            }
+        // use exclusive OR
+        // while(i < nums.size()){
+        //     sum = sum ^ nums[i];
+        //     cout << "Current SUM is " << sum << endl;
+        //     i++;
+        // }
 
-            else{
-                memo.push_back(nums[i]);
-                cout << nums[i] <<"Not in memo" << endl;
-            }
+        // use exclusive OR
+        for(i = 0; i < nums.size(); ++i){
+            // cout << "SUM in b "<< bitset<3>(sum).to_string() << endl;
+            // cout << "NUMS[i] in b "<< bitset<3>(nums[i]).to_string() << endl;
+            cout << sum << " XOR " << nums[i];
+            sum = sum ^ nums[i];
+            cout << " SUM is " << sum << endl;
         }
-        printvect1d<int>(memo);
-        return 0;
+        return sum;
     }
 };
 
@@ -54,6 +58,6 @@ int main(){
     nums.push_back(2);
 
     Solution soln;
-    cout << "Solution is: "<< soln.singleNumber(nums) << endl;
+    cout << "Solution is:\n"<< soln.singleNumber(nums) << endl;
     return 0;
 }
