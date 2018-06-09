@@ -27,7 +27,9 @@ public:
 
     /*
     RECURSIVE SOLN w/ MEMORIZATION
-    */
+    TIME:   O(n)
+    SPACE:  O(n)
+
     int climbStairs(int n){
         // create empty vect with n+1 soln
         vector<int> memo(n+1,0);
@@ -44,6 +46,26 @@ public:
         memo[i] = recurs(i+1, n, memo) + recurs(i+2, n, memo);
         return memo[i];
     }
+    */
+
+    /*
+    DP
+    TIME:   O(n)
+    SPACE:  O(n)
+    */
+
+    int climbStairs(int n){
+        if(n==1){return 1;}
+        // Init solution
+        vector<int> dp(n+1,0);
+        dp[1] = 1;
+        dp[2] = 2;
+
+        for(int i=3; i <=n; ++i){
+            dp[i] = dp[i-1]+ dp[i-2];
+        }
+        return dp[n];
+    }
 
 };
 
@@ -52,6 +74,6 @@ public:
 int main(){
     // init
     Solution soln;
-    cout << soln.climbStairs(5) << endl;
+    cout << soln.climbStairs(1000) << endl;
     return 0;
 }
