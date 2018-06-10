@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <string>
 
 // UTILS------------------------------------------------------------
 // given idx, element and length print [a_0, ... , a_n-1]
@@ -21,9 +22,12 @@ void brackets(int i, T el, int n){
 // 1D vect
 template<typename T>
 void printvect1d(std::vector<T> &vectin){
-    for(int i = 0; i < vectin.size(); ++i){
-        brackets<T>(i, vectin[i], vectin.size());
+    if(vectin.size() !=1){
+        for(int i = 0; i < vectin.size(); ++i){
+            brackets<T>(i, vectin[i], vectin.size());
+        }
     }
+    else{std::cout<<"["<<vectin[0] <<"]";}
     std::cout << std::endl;
 }
 
