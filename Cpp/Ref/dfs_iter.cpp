@@ -43,6 +43,7 @@
 #include <vector>
 #include <list>
 #include <iostream>
+#include <stack>
 
 using namespace std;
 
@@ -82,6 +83,8 @@ void Graph::DFS(int s)
     // Push the current source node.
     stack.push(s);
 
+    // DFS --> STACK --> LIFO (DSL)
+    // BFS --> QUEUE --> FIFO (BQF)
     while (!stack.empty())
     {
         // Pop a vertex from stack and print it
