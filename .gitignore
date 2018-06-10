@@ -1,2 +1,2 @@
 .out
-.ipynb
+**/*.ipynb_checkpoints/
