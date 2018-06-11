@@ -46,8 +46,8 @@ def bfs(matrix, queue, visited):
             return res;
         }
         int n = matrix.length, m = matrix[0].length;
-        //One visited map for each ocean
 
+        //One visited map for each ocean
         boolean[][] pacific = new boolean[n][m];
         boolean[][] atlantic = new boolean[n][m];
 
@@ -81,10 +81,62 @@ def pacificAtlantic(matrix):
 
     ans = []
 
+    def bfs(matrix, queue, visited):
+
+        # col length
+        n = len(matrix)
+
+        # row length
+        m = len(matrix[0])
+
+        # while queue is not empty
+        while queue:
+            current = queue.get()
+
+            for direction in directions:
+                x = current[0] + d[0]
+                y = current[1] + d[1]
+                if x<0 or x>=n or y<0 or y>=m or visited[x][y] or matrix[x][y] < matrix[current[0]][current[1]]:
+                    continue
+                visited[x][y] = True
+                queue.put([x,y])
+
+
     # col length
     n = len(matrix)
 
     # row length
     m = len(matrix[0])
 
-    if not matrix or n ==0 or m==0: return ans
+    if not matrix or n==0 or m==0: return ans
+
+    # init bools of false
+    pacific  = [False for _ in range(m) for _ in range (n)]
+    atlantic = [False for _ in range(m) for _ in range (n)]
+
+    pQueue = Queue.Queue()
+    aQueue = Queue.Queue()
+
+
+    for i in range(n):
+        pQueue.put([i, 0])
+        aQueue.put([i, m-1])
+        pacific[i][0] = True
+        atlantic[i][m-1]= True
+
+    for i in range(m):
+        pQueue.put([0, i])
+        aQueue.put([n-1, i])
+        pacific[0][i] = True
+        atlantic[n-1][i]= True
+
+    bfs(matrix, pQueue, pacific)
+    bfs(matrix, aQueue, atlantic)
+
+
+    for i in range(n):
+        for j in range(m):
+            if pacific[i][j] && atlantic[i][j]
+            ans.append([i, j])
+
+    return ans
