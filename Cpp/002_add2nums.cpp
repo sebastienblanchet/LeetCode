@@ -17,6 +17,8 @@ Required:
 
 1. Generate each number (2 * 10^0 + 4 * 10^1 + 3 * 10 ^ 2)
 
+Will not work because of overflow
+
  */
 
 #include <iostream>
@@ -30,24 +32,23 @@ struct ListNode {
     ListNode(int x) : val(x), next(NULL) {}
 };
 
-// ListNode* genLL(std::vector<int> inVect){
+ListNode* genLL(std::vector<int> inVect){
 
-//     // Generate first element
-//     ListNode head = ListNode(inVect[0]);
-//     ListNode prev = head;
+    // Generate first element
+    ListNode *head = new ListNode(inVect[0]);
+    ListNode *prev = head;
 
-//     std::vector<int>::size_type sz = inVect.size();
+    std::vector<int>::size_type sz = inVect.size();
 
-//     for (unsigned int i = 1; i < sz; i++)
-//     {
-//         std::cout << inVect[i] << std::endl;
-//         ListNode cur = ListNode(inVect[i]);
-//         prev.next = &cur;
-//         prev = cur;
-//     }
+    for (unsigned int i = 1; i < sz; i++)
+    {
+        ListNode *cur = new ListNode(inVect[i]);
+        prev->next = cur;
+        prev = cur;
+    }
 
-//     return head;
-// }
+    return head;
+}
 
 class Solution {
 public:
@@ -96,7 +97,6 @@ public:
 
         ListNode* ans = new ListNode(rem);
         ListNode* prev = ans;
-        // ListNode cur;
 
         while (sum)
         {
@@ -109,27 +109,30 @@ public:
         
         return ans;
     }
+
+    ListNode *addTwoNumbers2(ListNode *l1, ListNode *l2) {
+        ListNode preHead(0), *p = &preHead;
+        int extra = 0;
+        while (l1 || l2 || extra) {
+            if (l1) extra += l1->val, l1 = l1->next;
+            if (l2) extra += l2->val, l2 = l2->next;
+            p->next = new ListNode(extra % 10);
+            extra /= 10;
+            p = p->next;
+        }
+        return preHead.next;
+    }
 };
 
 int main(int argc, char const *argv[])
 {
-    ListNode head = ListNode(1);
-    ListNode mid = ListNode(2);
-    ListNode end = ListNode(3);
-    head.next = &mid;
-    mid.next = &end;
-
-    ListNode l1 = head;
-    ListNode l2 = head;
-
-    // Generate the lists
-    // std::vector<int> vect1 = {1, 2, 3};
-    // ListNode l1 = genLL(vect1);
+    std::vector<int> vect1 = {2,4,3};
+    std::vector<int> vect2 = {5,6,4};
+    ListNode *l1 = genLL(vect1);
+    ListNode *l2 = genLL(vect2);
 
     Solution soln;
-    soln.printLL(&l1);
-    std::cout << soln.genNum(&l1) <<  std::endl;
-    ListNode* l3 = soln.addTwoNumbers(&l1, &l2);
-    soln.printLL(l3);
+    std::cout << soln.genNum(l1) <<  std::endl;
+    soln.printLL(soln.addTwoNumbers(l1, l2));
     return 0;
 }

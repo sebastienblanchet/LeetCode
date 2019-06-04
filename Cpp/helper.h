@@ -1,3 +1,10 @@
+/*
+ * 
+ * C++ Helper function
+ * 
+ */
+
+#ifdef __cplusplus
 #include <iostream>
 #include <vector>
 
@@ -31,3 +38,61 @@ void printvect2d(std::vector< std::vector<int> > &vectin) {
         }
     }
 }
+
+#endif
+
+/*
+ * 
+ * C Helper function
+ * 
+ */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define CHECK_EQ(a,b) if ((a) != (b)) { \
+  printf("Check failed at line %d, %s != %s\n", __LINE__, #a, #b); \
+  return 0; \
+}
+
+void printBinUint32t(uint32_t num)
+{
+    uint32_t x = sizeof(uint32_t) * 8;
+
+    printf("0x%8x = 0b", num);
+    while (x)
+    {
+        // print out bit in last pos
+        printf("%u", ( ((num) >> (x - 1)) & 1 ) );
+        // Go to x - 1th bit
+        x--;
+    }
+
+    printf("\n");
+
+}
+
+void printBinInt(int num)
+{
+    int x = sizeof(int) * 8;
+
+    printf("0x%8x = 0b", num);
+    while (x)
+    {
+        // print out bit in last pos
+        printf("%u", ( ((num) >> (x - 1)) & 1 ) );
+        // Go to x - 1th bit
+        x--;
+    }
+
+    printf("\n");
+
+}
+
+#ifdef __cplusplus
+}
+#endif
