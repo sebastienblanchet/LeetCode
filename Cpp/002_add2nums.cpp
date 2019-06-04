@@ -110,29 +110,51 @@ public:
         return ans;
     }
 
+
     ListNode *addTwoNumbers2(ListNode *l1, ListNode *l2) {
-        ListNode preHead(0), *p = &preHead;
-        int extra = 0;
-        while (l1 || l2 || extra) {
-            if (l1) extra += l1->val, l1 = l1->next;
-            if (l2) extra += l2->val, l2 = l2->next;
-            p->next = new ListNode(extra % 10);
-            extra /= 10;
-            p = p->next;
+        
+        ListNode dummy(0);
+        ListNode *cur = &dummy;
+
+        int sum = 0;
+        
+        // Iterate through list
+        while (l1 || l2 || sum) {
+            
+            // Add values from both lists
+            // and proceed to next
+            if (l1){
+                sum += l1->val;
+                l1 = l1->next;
+            }
+            if (l2){
+                sum += l2->val;
+                l2 = l2->next;
+            }
+
+            // Create new node with digit
+            // in ONES column
+            cur->next = new ListNode(sum % 10);
+
+            // This is the carry
+            sum /= 10;
+            
+            // Go to next
+            cur = cur->next;
         }
-        return preHead.next;
+        return dummy.next;
     }
 };
 
 int main(int argc, char const *argv[])
 {
-    std::vector<int> vect1 = {2,4,3};
-    std::vector<int> vect2 = {5,6,4};
+    std::vector<int> vect1{2,4,3};
+    std::vector<int> vect2{5,6,4};
     ListNode *l1 = genLL(vect1);
     ListNode *l2 = genLL(vect2);
 
     Solution soln;
     std::cout << soln.genNum(l1) <<  std::endl;
-    soln.printLL(soln.addTwoNumbers(l1, l2));
+    soln.printLL(soln.addTwoNumbers2(l1, l2));
     return 0;
 }
