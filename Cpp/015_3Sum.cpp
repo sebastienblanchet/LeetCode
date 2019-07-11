@@ -90,17 +90,21 @@ int main() {
     nums.push_back(1);
     nums.push_back(2);
 
+    std::vector<int> v = vectorRangeFromEnd<int>(3, nums);
+    printvect1d<int>(v);
+    std::cout << "\n";
+
     //  need to user DOUBLE QUOTES FOR STRINGS OTHERWISE
     // THEY ARE CHARACTER LITERALS https://stackoverflow.com/questions/9130112/compiler-error-character-constant-too-long-for-its-type-whats-wrong?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
-    std::cout << "Input: ";
-    printvect1d(nums);
-    std::cout << endl;
+    // std::cout << "Input: ";
+    // printvect1d(nums);
+    // std::cout << "\n";
 
-    // vector of vectors?
-    std::vector< std::vector<int> > ans = threeSum(nums);
-    std::cout << "Answer ";
-    printvect2d(ans);
-    std::cout << endl;
+    // // vector of vectors?
+    // std::vector< std::vector<int> > ans = threeSum(nums);
+    // std::cout << "Answer ";
+    // printvect2d(ans);
+    // std::cout << "\n";
 
     return 0;
 }

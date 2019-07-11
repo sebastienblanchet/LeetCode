@@ -6,11 +6,21 @@
 
 #ifdef __cplusplus
 #include <iostream>
+#include <iterator>
 #include <vector>
+#include <string>
+#include <unordered_map>
+
 
 // given idx, element and length print [a_0, ... , a_n-1]
-void brackets(int i, int el, int n) {
-    if (i == 0) {
+template<typename T>
+void brackets(int i, T el, int n) {
+    // Vector of len 1
+    if (i == 0 && i == n - 1) {
+        std::cout << "[" << el << "]";
+
+    }
+    else if (i == 0) {
         std::cout << "[" << el << ", ";
 
     }
@@ -24,19 +34,45 @@ void brackets(int i, int el, int n) {
 }
 
 // 1D vect
-void printvect1d(std::vector<int> &vectin) {
+template<typename T>
+void printvect1d(std::vector<T> &vectin) {
     for (int i = 0; i < vectin.size(); ++i) {
-        brackets(i, vectin[i], vectin.size());
+        brackets<T>(i, vectin[i], vectin.size());
     }
+    std::cout << std::endl;
 }
 
 // 2D vect
-void printvect2d(std::vector< std::vector<int> > &vectin) {
+template<typename T>
+void printvect2d(std::vector< std::vector<T> > &vectin) {
+
+    std::cout << "[" << std::endl;
     for (int i = 0; i < vectin.size(); ++i) {
-        for ( int j = 0; j < vectin[i].size(); ++j) {
-            brackets(j, vectin[i][j], vectin[i].size());
-        }
+        std::cout << "    ";
+        printvect1d<T>(vectin[i]);
     }
+    std::cout << "]" << std::endl;
+}
+
+template<typename T, typename T2>
+void printMapVect(std::unordered_map<T, std::vector<T2>> &mapin){
+    std::cout << "{" << std::endl;
+    for (auto it : mapin) {
+        std::cout << "   " << it.first << ":";
+        printvect1d<T2>(it.second);
+    }
+    std::cout << "}" << std::endl;
+}
+
+template<typename T>
+std::vector<T> vectorRangeFromEnd(int offset, std::vector<T> vecIn)
+{
+    typedef typename std::vector<T>::const_iterator iterator;
+    iterator first = vecIn.end() - offset;
+    iterator last  = vecIn.end();
+    std::vector<T> vecOut(first, last);
+
+    return vecOut;
 }
 
 #endif
